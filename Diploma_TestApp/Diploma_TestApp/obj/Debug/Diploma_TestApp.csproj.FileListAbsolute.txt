@@ -1,0 +1,27 @@
+c:\users\andi\documents\visual studio 2012\Projects\Diploma_TestApp\Diploma_TestApp\bin\Debug\Diploma_TestApp.exe
+c:\users\andi\documents\visual studio 2012\Projects\Diploma_TestApp\Diploma_TestApp\bin\Debug\Diploma_TestApp.pdb
+c:\users\andi\documents\visual studio 2012\Projects\Diploma_TestApp\Diploma_TestApp\bin\Debug\PP_ComLib_Wrapper.dll
+c:\users\andi\documents\visual studio 2012\Projects\Diploma_TestApp\Diploma_TestApp\obj\Debug\Diploma_TestApp.csprojResolveAssemblyReference.cache
+c:\users\andi\documents\visual studio 2012\Projects\Diploma_TestApp\Diploma_TestApp\obj\Debug\Diploma_TestApp.Form1.resources
+c:\users\andi\documents\visual studio 2012\Projects\Diploma_TestApp\Diploma_TestApp\obj\Debug\Diploma_TestApp.Properties.Resources.resources
+c:\users\andi\documents\visual studio 2012\Projects\Diploma_TestApp\Diploma_TestApp\obj\Debug\Diploma_TestApp.csproj.GenerateResource.Cache
+c:\users\andi\documents\visual studio 2012\Projects\Diploma_TestApp\Diploma_TestApp\obj\Debug\Diploma_TestApp.exe
+c:\users\andi\documents\visual studio 2012\Projects\Diploma_TestApp\Diploma_TestApp\obj\Debug\Diploma_TestApp.pdb
+D:\iTKerry\PROJECTS\DIPLOMA\Diploma_TestApp\Diploma_TestApp\obj\Debug\Diploma_TestApp.exe
+D:\iTKerry\PROJECTS\DIPLOMA\Diploma_TestApp\Diploma_TestApp\obj\Debug\Diploma_TestApp.pdb
+D:\iTKerry\PROJECTS\DIPLOMA\Diploma_TestApp\Diploma_TestApp\bin\Debug\Diploma_TestApp.exe
+D:\iTKerry\PROJECTS\DIPLOMA\Diploma_TestApp\Diploma_TestApp\bin\Debug\Diploma_TestApp.pdb
+D:\iTKerry\PROJECTS\DIPLOMA\Diploma_TestApp\Diploma_TestApp\bin\Debug\PP_ComLib_Wrapper.dll
+D:\iTKerry\PROJECTS\DIPLOMA\Diploma_TestApp\Diploma_TestApp\obj\Debug\Diploma_TestApp.csprojResolveAssemblyReference.cache
+D:\iTKerry\PROJECTS\DIPLOMA\Diploma_TestApp\Diploma_TestApp\obj\Debug\Diploma_TestApp.Form1.resources
+D:\iTKerry\PROJECTS\DIPLOMA\Diploma_TestApp\Diploma_TestApp\obj\Debug\Diploma_TestApp.Properties.Resources.resources
+D:\iTKerry\PROJECTS\DIPLOMA\Diploma_TestApp\Diploma_TestApp\obj\Debug\Diploma_TestApp.csproj.GenerateResource.Cache
+D:\iTKerry\PROJECTS\C_Sharp\Diploma_TestApp\Diploma_TestApp\obj\Debug\Diploma_TestApp.exe
+D:\iTKerry\PROJECTS\C_Sharp\Diploma_TestApp\Diploma_TestApp\obj\Debug\Diploma_TestApp.pdb
+D:\iTKerry\PROJECTS\C_Sharp\Diploma_TestApp\Diploma_TestApp\bin\Debug\Diploma_TestApp.exe
+D:\iTKerry\PROJECTS\C_Sharp\Diploma_TestApp\Diploma_TestApp\bin\Debug\Diploma_TestApp.pdb
+D:\iTKerry\PROJECTS\C_Sharp\Diploma_TestApp\Diploma_TestApp\bin\Debug\PP_ComLib_Wrapper.dll
+D:\iTKerry\PROJECTS\C_Sharp\Diploma_TestApp\Diploma_TestApp\obj\Debug\Diploma_TestApp.csprojResolveAssemblyReference.cache
+D:\iTKerry\PROJECTS\C_Sharp\Diploma_TestApp\Diploma_TestApp\obj\Debug\Diploma_TestApp.Form1.resources
+D:\iTKerry\PROJECTS\C_Sharp\Diploma_TestApp\Diploma_TestApp\obj\Debug\Diploma_TestApp.Properties.Resources.resources
+D:\iTKerry\PROJECTS\C_Sharp\Diploma_TestApp\Diploma_TestApp\obj\Debug\Diploma_TestApp.csproj.GenerateResource.Cache
