@@ -272,12 +272,25 @@ namespace Diploma_TestApp
                         toolStrip_IlluminationStatus.Text = "Illumination: " + DECillumination.ToString();
                         toolStrip_TemperatureStatus.Text = "Temperature: " + DECtemperature.ToString();
                     } ));
+
                 if (InvokeRequired)
                     this.Invoke(new MethodInvoker(() => 
                     {
                         textBox_ConsoleOutput.AppendText("\r\n>>> Illum: " + DECillumination.ToString() + "   Temp: " + DECtemperature.ToString());
                     } ));
                 
+                if (InvokeRequired)
+                    this.Invoke(new MethodInvoker(() => 
+                    {
+                        int ChartXPointer_illumination = 0;
+                        int ChartXPointer_temperature = 0;                        
+                        this.Chart.Series["Illumination"].Points.AddXY(ChartXPointer_illumination++, DECillumination);                                               
+                        this.Chart.Series["Temperature"].Points.AddXY(ChartXPointer_temperature++, DECtemperature);
+                        this.Chart.ChartAreas["ChartArea1"].AxisX.Minimum = 0;
+                        this.Chart.ChartAreas["ChartArea1"].AxisX.Maximum = 200;
+                        this.Chart.ChartAreas["ChartArea1"].RecalculateAxesScale();
+                    }));
+
                 // Use Debugger.Log only for debugging
                 //Debugger.Log(0, "", "\r\n>>> Illum: " + illumination.ToString("X4") + "   Temp: " + temperature.ToString("X4"));
 
@@ -400,7 +413,7 @@ namespace Diploma_TestApp
 
                 taskbarNotify.Text = DefaultText + "Stopped";
 
-                this.Text = DefaultText + "Stopped";
+                this.Text = DefaultText + "Stopped";                
             }                                    
 
             //6. Remember current state
