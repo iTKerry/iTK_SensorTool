@@ -263,16 +263,19 @@ namespace Diploma_TestApp
                 temperature = (sensorData[0] << 8) + sensorData[1];
                 illumination = (sensorData[2] << 8) + sensorData[3];
 
+                int DECtemperature = Convert.ToInt32(temperature);
+                int DECillumination = Convert.ToInt32(illumination);
+
                 if (InvokeRequired)
                     this.Invoke(new MethodInvoker(() =>
                     {
-                        toolStrip_IlluminationStatus.Text = "Illumination: " + illumination.ToString("X4");
-                        toolStrip_TemperatureStatus.Text = "Temperature: " + temperature.ToString("X4");
+                        toolStrip_IlluminationStatus.Text = "Illumination: " + DECillumination.ToString();
+                        toolStrip_TemperatureStatus.Text = "Temperature: " + DECtemperature.ToString();
                     } ));
                 if (InvokeRequired)
                     this.Invoke(new MethodInvoker(() => 
                     {
-                        textBox_ConsoleOutput.AppendText("\r\n>>> Illum: " + illumination.ToString("X4") + "   Temp: " + temperature.ToString("X4"));
+                        textBox_ConsoleOutput.AppendText("\r\n>>> Illum: " + DECillumination.ToString() + "   Temp: " + DECtemperature.ToString());
                     } ));
                 
                 // Use Debugger.Log only for debugging

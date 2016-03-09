@@ -25,3 +25,12 @@ D:\iTKerry\PROJECTS\C_Sharp\Diploma_TestApp\Diploma_TestApp\obj\Debug\Diploma_Te
 D:\iTKerry\PROJECTS\C_Sharp\Diploma_TestApp\Diploma_TestApp\obj\Debug\Diploma_TestApp.Form1.resources
 D:\iTKerry\PROJECTS\C_Sharp\Diploma_TestApp\Diploma_TestApp\obj\Debug\Diploma_TestApp.Properties.Resources.resources
 D:\iTKerry\PROJECTS\C_Sharp\Diploma_TestApp\Diploma_TestApp\obj\Debug\Diploma_TestApp.csproj.GenerateResource.Cache
+D:\iTKerry\PROJECTS\GIT\iTK_SensorTool\Diploma_TestApp\Diploma_TestApp\obj\Debug\Diploma_TestApp.exe
+D:\iTKerry\PROJECTS\GIT\iTK_SensorTool\Diploma_TestApp\Diploma_TestApp\obj\Debug\Diploma_TestApp.pdb
+D:\iTKerry\PROJECTS\GIT\iTK_SensorTool\Diploma_TestApp\Diploma_TestApp\bin\Debug\Diploma_TestApp.exe
+D:\iTKerry\PROJECTS\GIT\iTK_SensorTool\Diploma_TestApp\Diploma_TestApp\bin\Debug\Diploma_TestApp.pdb
+D:\iTKerry\PROJECTS\GIT\iTK_SensorTool\Diploma_TestApp\Diploma_TestApp\bin\Debug\PP_ComLib_Wrapper.dll
+D:\iTKerry\PROJECTS\GIT\iTK_SensorTool\Diploma_TestApp\Diploma_TestApp\obj\Debug\Diploma_TestApp.csprojResolveAssemblyReference.cache
+D:\iTKerry\PROJECTS\GIT\iTK_SensorTool\Diploma_TestApp\Diploma_TestApp\obj\Debug\Diploma_TestApp.Form1.resources
+D:\iTKerry\PROJECTS\GIT\iTK_SensorTool\Diploma_TestApp\Diploma_TestApp\obj\Debug\Diploma_TestApp.Properties.Resources.resources
+D:\iTKerry\PROJECTS\GIT\iTK_SensorTool\Diploma_TestApp\Diploma_TestApp\obj\Debug\Diploma_TestApp.csproj.GenerateResource.Cache
