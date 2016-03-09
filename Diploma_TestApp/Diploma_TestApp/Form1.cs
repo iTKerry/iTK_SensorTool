@@ -146,10 +146,11 @@ namespace Diploma_TestApp
             
             GetActivePorts(out guiState.sensorPort, out guiState.actuatorPort);
 
-            if ((ioThread != null) && (guiRunState == true))
-                guiState.threadRunning = true;
-            else
-                guiState.threadRunning = false;
+            //if ((ioThread != null) && (guiRunState == true))
+            //    guiState.threadRunning = true;
+            //else
+            //    guiState.threadRunning = false;
+            guiState.threadRunning = (ioThread != null) && (guiRunState == true);
         }
 
         #endregion Aux_Methods
@@ -261,16 +262,21 @@ namespace Diploma_TestApp
 
                 temperature = (sensorData[0] << 8) + sensorData[1];
                 illumination = (sensorData[2] << 8) + sensorData[3];
-                                
-                toolStrip_IlluminationStatus.Text = "Illumination: " + illumination.ToString("X4");
-                toolStrip_TemperatureStatus.Text = "Temperature: " + temperature.ToString("X4");
 
+                if (InvokeRequired)
+                    this.Invoke(new MethodInvoker(() =>
+                    {
+                        toolStrip_IlluminationStatus.Text = "Illumination: " + illumination.ToString("X4");
+                        toolStrip_TemperatureStatus.Text = "Temperature: " + temperature.ToString("X4");
+                    } ));
+                if (InvokeRequired)
+                    this.Invoke(new MethodInvoker(() => 
+                    {
+                        textBox_ConsoleOutput.AppendText("\r\n>>> Illum: " + illumination.ToString("X4") + "   Temp: " + temperature.ToString("X4"));
+                    } ));
+                
                 // Use Debugger.Log only for debugging
                 //Debugger.Log(0, "", "\r\n>>> Illum: " + illumination.ToString("X4") + "   Temp: " + temperature.ToString("X4"));
-                
-                //Cross-thread shit ???????????????????????????????????????????????????????
-                //textBox_ConsoleOutput.AppendText("\r\n>>> Illum: " + illumination.ToString("X4") + "   Temp: " + temperature.ToString("X4"));
-
 
                 //2. Act upon Sensor State
                 if (illumination < (Illumination_Reference - Illumination_Delta))
@@ -306,8 +312,7 @@ namespace Diploma_TestApp
         #region GUI_Events
 
         private void Form1_Load(object sender, EventArgs e)
-        {
-
+        {            
             ppActuator = new PP_ComLib_WrapperClass();
             ppSensor = new PP_ComLib_WrapperClass();
 
@@ -352,9 +357,8 @@ namespace Diploma_TestApp
         private void timer1_Tick(object sender, EventArgs e)
         {        
             //1. Get Current GUI State
-            GUI_State guiStateNow;
-            //Form1 FormText = new Form1();
-            //string FormDefaultText = "iTKerry's Sensor Tool :: ";            
+            GUI_State guiStateNow;            
+            string DefaultText = "iTKerry's Sensor Tool :: ";            
 
             GetGuiState(out guiStateNow);
 
@@ -373,20 +377,27 @@ namespace Diploma_TestApp
 
             //Read data from sensor
 
-            //4. Set status bar labels            
+            //4. Set status labels            
             if (guiStateNow.threadRunning == true)
             {
                 toolStrip_RunningStatus.Text = "Running . . .";
-                toolStrip_RunningStatus.BackColor = Color.Green;
-                //FormText.Text = FormDefaultText + "Running";
+                toolStrip_RunningStatus.BackColor = Color.Green;                                
+
+                taskbarNotify.Text = DefaultText + "Running";
+
+                this.Text = DefaultText + "Running";
             }
             else
             {
                 toolStrip_RunningStatus.Text = "Stopped . . .";
                 toolStrip_RunningStatus.BackColor = Color.Orange;
+
                 toolStrip_IlluminationStatus.Text = "Illumination: -";
-                toolStrip_TemperatureStatus.Text = "Temperature: -";
-                //FormText.Text = FormDefaultText + "Stopped";
+                toolStrip_TemperatureStatus.Text = "Temperature: -";                
+
+                taskbarNotify.Text = DefaultText + "Stopped";
+
+                this.Text = DefaultText + "Stopped";
             }                                    
 
             //6. Remember current state
@@ -412,7 +423,8 @@ namespace Diploma_TestApp
 
         private void tEXTToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            // Close Form1.            
+            // Close Form1.
+            Application.Exit();
         }
 
         private void cmbActuators_SelectedIndexChanged(object sender, EventArgs e)

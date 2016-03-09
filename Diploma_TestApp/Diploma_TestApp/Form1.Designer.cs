@@ -42,20 +42,21 @@
             this.tabSettings = new System.Windows.Forms.TabPage();
             this.tabChart = new System.Windows.Forms.TabPage();
             this.statusStrip_ = new System.Windows.Forms.StatusStrip();
+            this.toolStrip_RunningStatus = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStrip_IlluminationStatus = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStrip_TemperatureStatus = new System.Windows.Forms.ToolStripStatusLabel();
-            this.toolStrip_RunningStatus = new System.Windows.Forms.ToolStripStatusLabel();
             this.textBox_ConsoleOutput = new System.Windows.Forms.TextBox();
             this.taskbarNotify = new System.Windows.Forms.NotifyIcon(this.components);
-            this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.taskbarNotify_contextMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.tEXTToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.runToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.stopToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
+            this.tEXTToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.groupboxPorts.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabSettings.SuspendLayout();
+            this.tabChart.SuspendLayout();
             this.statusStrip_.SuspendLayout();
             this.taskbarNotify_contextMenu.SuspendLayout();
             this.SuspendLayout();
@@ -146,7 +147,7 @@
             this.tabControl1.Location = new System.Drawing.Point(2, 2);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(553, 376);
+            this.tabControl1.Size = new System.Drawing.Size(553, 475);
             this.tabControl1.TabIndex = 5;
             // 
             // tabSettings
@@ -155,17 +156,18 @@
             this.tabSettings.Location = new System.Drawing.Point(4, 22);
             this.tabSettings.Name = "tabSettings";
             this.tabSettings.Padding = new System.Windows.Forms.Padding(3);
-            this.tabSettings.Size = new System.Drawing.Size(545, 350);
+            this.tabSettings.Size = new System.Drawing.Size(545, 449);
             this.tabSettings.TabIndex = 0;
             this.tabSettings.Text = "Settings";
             this.tabSettings.UseVisualStyleBackColor = true;
             // 
             // tabChart
             // 
+            this.tabChart.Controls.Add(this.textBox_ConsoleOutput);
             this.tabChart.Location = new System.Drawing.Point(4, 22);
             this.tabChart.Name = "tabChart";
             this.tabChart.Padding = new System.Windows.Forms.Padding(3);
-            this.tabChart.Size = new System.Drawing.Size(545, 350);
+            this.tabChart.Size = new System.Drawing.Size(545, 449);
             this.tabChart.TabIndex = 1;
             this.tabChart.Text = "Chart";
             this.tabChart.UseVisualStyleBackColor = true;
@@ -182,6 +184,13 @@
             this.statusStrip_.TabIndex = 6;
             this.statusStrip_.Text = "StatusBar";
             // 
+            // toolStrip_RunningStatus
+            // 
+            this.toolStrip_RunningStatus.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(0)))));
+            this.toolStrip_RunningStatus.Name = "toolStrip_RunningStatus";
+            this.toolStrip_RunningStatus.Size = new System.Drawing.Size(60, 17);
+            this.toolStrip_RunningStatus.Text = "Stopped...";
+            // 
             // toolStrip_IlluminationStatus
             // 
             this.toolStrip_IlluminationStatus.Name = "toolStrip_IlluminationStatus";
@@ -194,20 +203,13 @@
             this.toolStrip_TemperatureStatus.Size = new System.Drawing.Size(85, 17);
             this.toolStrip_TemperatureStatus.Text = "Temperature: -";
             // 
-            // toolStrip_RunningStatus
-            // 
-            this.toolStrip_RunningStatus.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(0)))));
-            this.toolStrip_RunningStatus.Name = "toolStrip_RunningStatus";
-            this.toolStrip_RunningStatus.Size = new System.Drawing.Size(60, 17);
-            this.toolStrip_RunningStatus.Text = "Stopped...";
-            // 
             // textBox_ConsoleOutput
             // 
-            this.textBox_ConsoleOutput.Location = new System.Drawing.Point(2, 384);
+            this.textBox_ConsoleOutput.Location = new System.Drawing.Point(6, 6);
             this.textBox_ConsoleOutput.Multiline = true;
             this.textBox_ConsoleOutput.Name = "textBox_ConsoleOutput";
             this.textBox_ConsoleOutput.ReadOnly = true;
-            this.textBox_ConsoleOutput.Size = new System.Drawing.Size(549, 93);
+            this.textBox_ConsoleOutput.Size = new System.Drawing.Size(155, 437);
             this.textBox_ConsoleOutput.TabIndex = 0;
             // 
             // taskbarNotify
@@ -217,14 +219,8 @@
             this.taskbarNotify.BalloonTipTitle = "This is title";
             this.taskbarNotify.ContextMenuStrip = this.taskbarNotify_contextMenu;
             this.taskbarNotify.Icon = ((System.Drawing.Icon)(resources.GetObject("taskbarNotify.Icon")));
-            this.taskbarNotify.Text = "iTK Sensor Tool";
+            this.taskbarNotify.Text = "iTK Sensor Tool :: ";
             this.taskbarNotify.Visible = true;
-            // 
-            // toolStripMenuItem1
-            // 
-            this.toolStripMenuItem1.Name = "toolStripMenuItem1";
-            this.toolStripMenuItem1.Size = new System.Drawing.Size(32, 19);
-            this.toolStripMenuItem1.Text = "toolStripMenuItem1";
             // 
             // taskbarNotify_contextMenu
             // 
@@ -235,18 +231,6 @@
             this.tEXTToolStripMenuItem});
             this.taskbarNotify_contextMenu.Name = "taskbarNotify_contextMenu";
             this.taskbarNotify_contextMenu.Size = new System.Drawing.Size(99, 76);
-            // 
-            // tEXTToolStripMenuItem
-            // 
-            this.tEXTToolStripMenuItem.Name = "tEXTToolStripMenuItem";
-            this.tEXTToolStripMenuItem.Size = new System.Drawing.Size(98, 22);
-            this.tEXTToolStripMenuItem.Text = "Exit";
-            this.tEXTToolStripMenuItem.Click += new System.EventHandler(this.tEXTToolStripMenuItem_Click);
-            // 
-            // toolStripSeparator1
-            // 
-            this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(95, 6);
             // 
             // runToolStripMenuItem
             // 
@@ -262,13 +246,30 @@
             this.stopToolStripMenuItem.Text = "Stop";
             this.stopToolStripMenuItem.Click += new System.EventHandler(this.stopToolStripMenuItem_Click);
             // 
+            // toolStripSeparator1
+            // 
+            this.toolStripSeparator1.Name = "toolStripSeparator1";
+            this.toolStripSeparator1.Size = new System.Drawing.Size(95, 6);
+            // 
+            // tEXTToolStripMenuItem
+            // 
+            this.tEXTToolStripMenuItem.Name = "tEXTToolStripMenuItem";
+            this.tEXTToolStripMenuItem.Size = new System.Drawing.Size(98, 22);
+            this.tEXTToolStripMenuItem.Text = "Exit";
+            this.tEXTToolStripMenuItem.Click += new System.EventHandler(this.tEXTToolStripMenuItem_Click);
+            // 
+            // toolStripMenuItem1
+            // 
+            this.toolStripMenuItem1.Name = "toolStripMenuItem1";
+            this.toolStripMenuItem1.Size = new System.Drawing.Size(32, 19);
+            this.toolStripMenuItem1.Text = "toolStripMenuItem1";
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.btnStop;
             this.ClientSize = new System.Drawing.Size(557, 531);
-            this.Controls.Add(this.textBox_ConsoleOutput);
             this.Controls.Add(this.statusStrip_);
             this.Controls.Add(this.tabControl1);
             this.Controls.Add(this.btnRun);
@@ -286,6 +287,8 @@
             this.groupboxPorts.PerformLayout();
             this.tabControl1.ResumeLayout(false);
             this.tabSettings.ResumeLayout(false);
+            this.tabChart.ResumeLayout(false);
+            this.tabChart.PerformLayout();
             this.statusStrip_.ResumeLayout(false);
             this.statusStrip_.PerformLayout();
             this.taskbarNotify_contextMenu.ResumeLayout(false);
