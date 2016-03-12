@@ -42,14 +42,14 @@
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="Diploma_TestApp.exe" size="112128">
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="Diploma_TestApp.exe" size="114688">
       <assemblyIdentity name="Diploma_TestApp" version="1.0.0.25" language="neutral" processorArchitecture="msil" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>jy1bODkBvAm8Ta8IjAzvvR76gZM1TcHe5ysX4brsyu0=</dsig:DigestValue>
+        <dsig:DigestValue>spMUZbFInAnSwaKFE9p/qddIlmF+tuy56X89GGNG0NA=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
@@ -65,13 +65,13 @@
       </hash>
     </dependentAssembly>
   </dependency>
-  <file name="Diploma_TestApp.exe.config" size="163">
+  <file name="Diploma_TestApp.exe.config" size="160">
     <hash>
       <dsig:Transforms>
         <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
       </dsig:Transforms>
       <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-      <dsig:DigestValue>l/VPfNqUVNQIPyQECM0xWlTJm+DXcPOne6oYsApBDIo=</dsig:DigestValue>
+      <dsig:DigestValue>HqN2MyOS1tczkwKtzzaJRVzFYQ4972zrbLRXmp6d9F0=</dsig:DigestValue>
     </hash>
   </file>
   <compatibility xmlns="urn:schemas-microsoft-com:compatibility.v1">

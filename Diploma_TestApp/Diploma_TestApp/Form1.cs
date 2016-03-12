@@ -8,6 +8,7 @@ using System.Windows.Forms;
 using PP_ComLib_Wrapper;
 using System.Diagnostics;
 using System.Threading;
+using System.Windows.Forms.DataVisualization.Charting;
 
 namespace Diploma_TestApp
 {
@@ -20,15 +21,21 @@ namespace Diploma_TestApp
         string lastActiveSensorPort;
         string lastActiveActuatorPort;
 
+        DateTime date;
+
         bool guiRunState = false;
-        System.Threading.Thread ioThread = null;
+        Thread ioThread = null;
+
         struct threadParams
         {
             public string sensorPort;
             public string actuatorPort;
+        }
 
-            //public int temperature;
-            //public int illumination;
+        struct threadDECdata
+        {
+            public int DECillumination;
+            public int DECtemperature;
         }
 
         public struct GUI_State
@@ -166,7 +173,7 @@ namespace Diploma_TestApp
 
             byte[] data = new byte[] { 0x04, 0x01, (byte)((state == 0x00) ? 0x00 : 0xFF), 0x01 };
             hr = ppActuator.I2C_SendData(I2C_ADDR, data, out strError);
-            System.Threading.Thread.Sleep(100);
+            Thread.Sleep(100);
 
             return hr;
         }
@@ -177,7 +184,7 @@ namespace Diploma_TestApp
 
             if (ioThread != null)
             {
-                ioThread.Join(10000); //10 sec to give user time to react on I2C Error Msg box and close it
+                ioThread.Join(200); //10 sec to give user time to react on I2C Error Msg box and close it
 
                 if (ioThread.ThreadState != System.Threading.ThreadState.Stopped)
                     ioThread.Abort();
@@ -231,14 +238,14 @@ namespace Diploma_TestApp
 
             //Fade off LEDs on Sensor Port
             ppSensor.I2C_SendData(I2C_ADDR, new byte[] { 0x04, 0x01, 0x0, 0x01 }, out strError);
-            System.Threading.Thread.Sleep(150);
+            Thread.Sleep(170);
             ppSensor.I2C_SendData(I2C_ADDR, new byte[] { 0x04, 0x02, 0x0, 0x01 }, out strError);
-            System.Threading.Thread.Sleep(150);
+            Thread.Sleep(170);
 
             ppActuator.I2C_SendData(I2C_ADDR, new byte[] { 0x04, 0x01, 0x0, 0x01 }, out strError);
-            System.Threading.Thread.Sleep(150);
+            Thread.Sleep(170);
             ppActuator.I2C_SendData(I2C_ADDR, new byte[] { 0x04, 0x02, 0x10, 0x01 }, out strError);
-            System.Threading.Thread.Sleep(150);
+            Thread.Sleep(170);
 
             //3. Run working loop
             int Illumination_Reference = 0x370;
@@ -263,32 +270,37 @@ namespace Diploma_TestApp
                 temperature = (sensorData[0] << 8) + sensorData[1];
                 illumination = (sensorData[2] << 8) + sensorData[3];
 
-                int DECtemperature = Convert.ToInt32(temperature);
-                int DECillumination = Convert.ToInt32(illumination);
+                threadDECdata DECdata = new threadDECdata();
+                DECdata.DECtemperature = Convert.ToInt32(temperature);
+                DECdata.DECillumination = Convert.ToInt32(illumination);
 
                 if (InvokeRequired)
                     this.Invoke(new MethodInvoker(() =>
                     {
-                        toolStrip_IlluminationStatus.Text = "Illumination: " + DECillumination.ToString();
-                        toolStrip_TemperatureStatus.Text = "Temperature: " + DECtemperature.ToString();
+                        toolStrip_IlluminationStatus.Text = "Illumination: " + DECdata.DECillumination.ToString();
+                        toolStrip_TemperatureStatus.Text = "Temperature: " + DECdata.DECtemperature.ToString();
                     } ));
 
                 if (InvokeRequired)
                     this.Invoke(new MethodInvoker(() => 
                     {
-                        textBox_ConsoleOutput.AppendText("\r\n>>> Illum: " + DECillumination.ToString() + "   Temp: " + DECtemperature.ToString());
+                        if (textBox_ConsoleOutput.Enabled == true)                       
+                            textBox_ConsoleOutput.AppendText("\r\n>>> Illum: " + DECdata.DECillumination.ToString() + "   Temp: " + DECdata.DECtemperature.ToString());
                     } ));
-                
+
+                int ChartXPointer_illumination = 0;
+                int ChartXPointer_temperature = 0;
+
                 if (InvokeRequired)
-                    this.Invoke(new MethodInvoker(() => 
-                    {
-                        int ChartXPointer_illumination = 0;
-                        int ChartXPointer_temperature = 0;                        
-                        this.Chart.Series["Illumination"].Points.AddXY(ChartXPointer_illumination++, DECillumination);                                               
-                        this.Chart.Series["Temperature"].Points.AddXY(ChartXPointer_temperature++, DECtemperature);
-                        this.Chart.ChartAreas["ChartArea1"].AxisX.Minimum = 0;
-                        this.Chart.ChartAreas["ChartArea1"].AxisX.Maximum = 200;
-                        this.Chart.ChartAreas["ChartArea1"].RecalculateAxesScale();
+                    this.Invoke(new MethodInvoker(() =>
+                    {                        
+                        if (Chart.Series["Illumination"].Points.Count > 150)
+                            Chart.Series["Illumination"].Points.RemoveAt(0);
+                        this.Chart.Series["Illumination"].Points.AddXY(ChartXPointer_illumination++, DECdata.DECillumination);
+                        if (Chart.Series["Temperature"].Points.Count > 150)
+                            Chart.Series["Temperature"].Points.RemoveAt(0);
+                        this.Chart.Series["Temperature"].Points.AddXY(ChartXPointer_temperature++, DECdata.DECtemperature);
+                        Chart.ResetAutoValues();
                     }));
 
                 // Use Debugger.Log only for debugging
@@ -314,10 +326,6 @@ namespace Diploma_TestApp
             //4. Thread Complete - shutdown LEDs on Actuator/Sensor
             ppActuator.PowerOff(out strError);
             ppSensor.PowerOff(out strError);
-            //ppActuator.I2C_SendData(I2C_ADDR, new byte[] { 0x04, 0x01, 0x0, 0x01 }, out strError);
-            //System.Threading.Thread.Sleep(100);
-            //ppActuator.I2C_SendData(I2C_ADDR, new byte[] { 0x04, 0x02, 0x00, 0x01 }, out strError);
-            //System.Threading.Thread.Sleep(100);
         }
 
         #endregion IO_Operations
@@ -333,16 +341,13 @@ namespace Diploma_TestApp
             ppSensor = new PP_ComLib_WrapperClass();
 
             ppActuator.w_ConnectToLatest();
-            ppSensor.w_ConnectToLatest();
-
-            //ppActuator._StartSelfTerminator(Process.GetCurrentProcess().Id);
-            //ppSensor._StartSelfTerminator(Process.GetCurrentProcess().Id);
+            ppSensor.w_ConnectToLatest();            
 
             ppActuator.OnConnect += Connect;
-            ppActuator.OnDisconnect += Disconnect;
+            ppActuator.OnDisconnect += Disconnect;            
 
             LoadPorts();
-
+            //LoadGraph();
             timer1.Start();
         }
 
@@ -360,23 +365,31 @@ namespace Diploma_TestApp
             if ((ioThread != null) && (ioThread.ThreadState == System.Threading.ThreadState.Running))
                 return;
 
-            ioThread = new System.Threading.Thread(RunIO_Process);
+            // StopWatch
+            date = DateTime.Now;            
+            StopWatchTimer.Interval = 10;
+            StopWatchTimer.Tick += new EventHandler(tickStopWatchTimer);
+            StopWatchTimer.Start();
+
+            ioThread = new Thread(RunIO_Process);
             ioThread.Start(data);
 
         }
 
         private void btnStop_Click(object sender, EventArgs e)
         {
+            StopWatchTimer.Dispose();
             StopIO_Process();
         }
 
         private void timer1_Tick(object sender, EventArgs e)
-        {        
+        {
             //1. Get Current GUI State
-            GUI_State guiStateNow;            
-            string DefaultText = "iTKerry's Sensor Tool :: ";            
-
+            //threadDECdata DECdata = new threadDECdata();
+            GUI_State guiStateNow;
             GetGuiState(out guiStateNow);
+
+            string DefaultText = "iTKerry's Sensor Tool :: ";            
 
             //2. Check if it was changed
             if (guiStateNow.Equals(guiStatePrev)) return;
@@ -402,6 +415,7 @@ namespace Diploma_TestApp
                 taskbarNotify.Text = DefaultText + "Running";
 
                 this.Text = DefaultText + "Running";
+                //Chart.ResetAutoValues();
             }
             else
             {
@@ -420,6 +434,15 @@ namespace Diploma_TestApp
             guiStatePrev = guiStateNow;
 
             guiStateNow.threadRunning = false;
+        }
+
+        private void tickStopWatchTimer(object sender, EventArgs e)
+        {
+            long tick = DateTime.Now.Ticks - date.Ticks;
+            DateTime stopWatch = new DateTime();
+
+            stopWatch = stopWatch.AddTicks(tick);
+            toolStrip_StopWatch.Text = String.Format("Time: " + "{0:HH:mm:ss:ff}", stopWatch);
         }
 
         private void cmbSensors_SelectedIndexChanged(object sender, EventArgs e)
@@ -441,6 +464,48 @@ namespace Diploma_TestApp
         {
             // Close Form1.
             Application.Exit();
+        }
+
+        private void ChartCheckListBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            // Allow illumination on chart
+            bool illumState = ChartCheckListBox.GetItemChecked(0);
+            if (illumState == true)            
+                Chart.Series[0].Enabled = true;            
+            else            
+                Chart.Series[0].Enabled = false;            
+
+            // Allow temperature on chart
+            bool tempState = ChartCheckListBox.GetItemChecked(1);
+            if (tempState == true)            
+                Chart.Series[1].Enabled = true;            
+            else            
+                Chart.Series[1].Enabled = false;
+
+            // Allow logging into textbox
+            bool logState = ChartCheckListBox.GetItemChecked(2);
+            if (logState == true)
+                textBox_ConsoleOutput.Enabled = true;
+            else
+                textBox_ConsoleOutput.Enabled = false;
+
+            // Set chart in 3D
+            bool ChartStyleState = ChartCheckListBox.GetItemChecked(3);
+            if (ChartStyleState == true)
+                Chart.ChartAreas[0].Area3DStyle.Enable3D = true;
+            else
+                Chart.ChartAreas[0].Area3DStyle.Enable3D = false;
+        }
+
+        private void btnClearLog_Click(object sender, EventArgs e)
+        {
+            textBox_ConsoleOutput.Clear();
+        }
+
+        private void btnClearChat_Click(object sender, EventArgs e)
+        {
+            Chart.Series[0].Points.Clear();
+            Chart.Series[1].Points.Clear();
         }
 
         private void cmbActuators_SelectedIndexChanged(object sender, EventArgs e)

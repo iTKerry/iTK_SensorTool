@@ -29,11 +29,11 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
             System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
             System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
             System.Windows.Forms.DataVisualization.Charting.Series series2 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.cmbSensors = new System.Windows.Forms.ComboBox();
             this.cmbActuators = new System.Windows.Forms.ComboBox();
             this.btnStop = new System.Windows.Forms.Button();
@@ -45,11 +45,17 @@
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabSettings = new System.Windows.Forms.TabPage();
             this.tabChart = new System.Windows.Forms.TabPage();
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.btnClearLog = new System.Windows.Forms.Button();
+            this.ChartCheckListBox = new System.Windows.Forms.CheckedListBox();
+            this.btnClearChat = new System.Windows.Forms.Button();
+            this.Chart = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.textBox_ConsoleOutput = new System.Windows.Forms.TextBox();
             this.statusStrip_ = new System.Windows.Forms.StatusStrip();
             this.toolStrip_RunningStatus = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStrip_IlluminationStatus = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStrip_TemperatureStatus = new System.Windows.Forms.ToolStripStatusLabel();
+            this.toolStrip_StopWatch = new System.Windows.Forms.ToolStripStatusLabel();
             this.taskbarNotify = new System.Windows.Forms.NotifyIcon(this.components);
             this.taskbarNotify_contextMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.runToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -57,14 +63,15 @@
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.tEXTToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
-            this.Chart = new System.Windows.Forms.DataVisualization.Charting.Chart();
+            this.StopWatchTimer = new System.Windows.Forms.Timer(this.components);
             this.groupboxPorts.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabSettings.SuspendLayout();
             this.tabChart.SuspendLayout();
+            this.panel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.Chart)).BeginInit();
             this.statusStrip_.SuspendLayout();
             this.taskbarNotify_contextMenu.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.Chart)).BeginInit();
             this.SuspendLayout();
             // 
             // cmbSensors
@@ -90,7 +97,7 @@
             // btnStop
             // 
             this.btnStop.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.btnStop.Location = new System.Drawing.Point(468, 483);
+            this.btnStop.Location = new System.Drawing.Point(453, 483);
             this.btnStop.Name = "btnStop";
             this.btnStop.Size = new System.Drawing.Size(75, 23);
             this.btnStop.TabIndex = 2;
@@ -100,7 +107,7 @@
             // 
             // btnRun
             // 
-            this.btnRun.Location = new System.Drawing.Point(387, 483);
+            this.btnRun.Location = new System.Drawing.Point(372, 483);
             this.btnRun.Name = "btnRun";
             this.btnRun.Size = new System.Drawing.Size(75, 23);
             this.btnRun.TabIndex = 3;
@@ -169,6 +176,7 @@
             // 
             // tabChart
             // 
+            this.tabChart.Controls.Add(this.panel1);
             this.tabChart.Controls.Add(this.Chart);
             this.tabChart.Controls.Add(this.textBox_ConsoleOutput);
             this.tabChart.Location = new System.Drawing.Point(4, 22);
@@ -179,13 +187,97 @@
             this.tabChart.Text = "Chart";
             this.tabChart.UseVisualStyleBackColor = true;
             // 
+            // panel1
+            // 
+            this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel1.Controls.Add(this.btnClearLog);
+            this.panel1.Controls.Add(this.ChartCheckListBox);
+            this.panel1.Controls.Add(this.btnClearChat);
+            this.panel1.Location = new System.Drawing.Point(147, 376);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(390, 67);
+            this.panel1.TabIndex = 5;
+            // 
+            // btnClearLog
+            // 
+            this.btnClearLog.Location = new System.Drawing.Point(300, 23);
+            this.btnClearLog.Name = "btnClearLog";
+            this.btnClearLog.Size = new System.Drawing.Size(75, 23);
+            this.btnClearLog.TabIndex = 3;
+            this.btnClearLog.Text = "Clear Log";
+            this.btnClearLog.UseVisualStyleBackColor = true;
+            this.btnClearLog.Click += new System.EventHandler(this.btnClearLog_Click);
+            // 
+            // ChartCheckListBox
+            // 
+            this.ChartCheckListBox.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.ChartCheckListBox.FormattingEnabled = true;
+            this.ChartCheckListBox.Items.AddRange(new object[] {
+            "Illumination",
+            "Temperature",
+            "Enable  Log",
+            "3D Chart"});
+            this.ChartCheckListBox.Location = new System.Drawing.Point(3, 3);
+            this.ChartCheckListBox.Name = "ChartCheckListBox";
+            this.ChartCheckListBox.Size = new System.Drawing.Size(121, 60);
+            this.ChartCheckListBox.TabIndex = 2;
+            this.ChartCheckListBox.UseTabStops = false;
+            this.ChartCheckListBox.SelectedIndexChanged += new System.EventHandler(this.ChartCheckListBox_SelectedIndexChanged);
+            // 
+            // btnClearChat
+            // 
+            this.btnClearChat.Location = new System.Drawing.Point(219, 23);
+            this.btnClearChat.Name = "btnClearChat";
+            this.btnClearChat.Size = new System.Drawing.Size(75, 23);
+            this.btnClearChat.TabIndex = 4;
+            this.btnClearChat.Text = "Clear Chart";
+            this.btnClearChat.UseVisualStyleBackColor = true;
+            this.btnClearChat.Click += new System.EventHandler(this.btnClearChat_Click);
+            // 
+            // Chart
+            // 
+            this.Chart.BackImageAlignment = System.Windows.Forms.DataVisualization.Charting.ChartImageAlignmentStyle.TopRight;
+            this.Chart.BorderlineColor = System.Drawing.Color.Black;
+            this.Chart.BorderlineDashStyle = System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.Solid;
+            this.Chart.BorderSkin.BorderWidth = 3;
+            chartArea1.Name = "ChartArea1";
+            chartArea1.Position.Auto = false;
+            chartArea1.Position.Height = 94F;
+            chartArea1.Position.Width = 93.49358F;
+            chartArea1.Position.X = 1F;
+            chartArea1.Position.Y = 3F;
+            this.Chart.ChartAreas.Add(chartArea1);
+            legend1.BorderWidth = 0;
+            legend1.LegendStyle = System.Windows.Forms.DataVisualization.Charting.LegendStyle.Row;
+            legend1.Name = "Legend1";
+            this.Chart.Legends.Add(legend1);
+            this.Chart.Location = new System.Drawing.Point(147, 6);
+            this.Chart.Name = "Chart";
+            series1.BorderWidth = 2;
+            series1.ChartArea = "ChartArea1";
+            series1.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
+            series1.Enabled = false;
+            series1.Legend = "Legend1";
+            series1.Name = "Illumination";
+            series2.BorderWidth = 2;
+            series2.ChartArea = "ChartArea1";
+            series2.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
+            series2.Enabled = false;
+            series2.Legend = "Legend1";
+            series2.Name = "Temperature";
+            this.Chart.Series.Add(series1);
+            this.Chart.Series.Add(series2);
+            this.Chart.Size = new System.Drawing.Size(390, 367);
+            this.Chart.TabIndex = 1;
+            // 
             // textBox_ConsoleOutput
             // 
+            this.textBox_ConsoleOutput.Enabled = false;
             this.textBox_ConsoleOutput.Location = new System.Drawing.Point(6, 6);
             this.textBox_ConsoleOutput.Multiline = true;
             this.textBox_ConsoleOutput.Name = "textBox_ConsoleOutput";
             this.textBox_ConsoleOutput.ReadOnly = true;
-            this.textBox_ConsoleOutput.Size = new System.Drawing.Size(155, 437);
+            this.textBox_ConsoleOutput.Size = new System.Drawing.Size(135, 437);
             this.textBox_ConsoleOutput.TabIndex = 0;
             // 
             // statusStrip_
@@ -193,7 +285,8 @@
             this.statusStrip_.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStrip_RunningStatus,
             this.toolStrip_IlluminationStatus,
-            this.toolStrip_TemperatureStatus});
+            this.toolStrip_TemperatureStatus,
+            this.toolStrip_StopWatch});
             this.statusStrip_.Location = new System.Drawing.Point(0, 509);
             this.statusStrip_.Name = "statusStrip_";
             this.statusStrip_.Size = new System.Drawing.Size(557, 22);
@@ -219,6 +312,12 @@
             this.toolStrip_TemperatureStatus.Size = new System.Drawing.Size(85, 17);
             this.toolStrip_TemperatureStatus.Text = "Temperature: -";
             // 
+            // toolStrip_StopWatch
+            // 
+            this.toolStrip_StopWatch.Name = "toolStrip_StopWatch";
+            this.toolStrip_StopWatch.Size = new System.Drawing.Size(87, 17);
+            this.toolStrip_StopWatch.Text = "Time: - : - : - : -";
+            // 
             // taskbarNotify
             // 
             this.taskbarNotify.BalloonTipIcon = System.Windows.Forms.ToolTipIcon.Info;
@@ -226,7 +325,7 @@
             this.taskbarNotify.BalloonTipTitle = "This is title";
             this.taskbarNotify.ContextMenuStrip = this.taskbarNotify_contextMenu;
             this.taskbarNotify.Icon = ((System.Drawing.Icon)(resources.GetObject("taskbarNotify.Icon")));
-            this.taskbarNotify.Text = "iTK Sensor Tool :: ";
+            this.taskbarNotify.Text = "iTK Sensor Tool :: INFO";
             this.taskbarNotify.Visible = true;
             // 
             // taskbarNotify_contextMenu
@@ -271,35 +370,6 @@
             this.toolStripMenuItem1.Size = new System.Drawing.Size(32, 19);
             this.toolStripMenuItem1.Text = "toolStripMenuItem1";
             // 
-            // Chart
-            // 
-            this.Chart.BackImageAlignment = System.Windows.Forms.DataVisualization.Charting.ChartImageAlignmentStyle.TopRight;
-            this.Chart.BorderSkin.BorderWidth = 3;
-            chartArea1.Name = "ChartArea1";
-            chartArea1.Position.Auto = false;
-            chartArea1.Position.Height = 94F;
-            chartArea1.Position.Width = 60.02174F;
-            chartArea1.Position.X = 3F;
-            chartArea1.Position.Y = 3F;
-            this.Chart.ChartAreas.Add(chartArea1);
-            legend1.Name = "Legend1";
-            this.Chart.Legends.Add(legend1);
-            this.Chart.Location = new System.Drawing.Point(168, 7);
-            this.Chart.Name = "Chart";
-            series1.ChartArea = "ChartArea1";
-            series1.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
-            series1.Legend = "Legend1";
-            series1.Name = "Illumination";
-            series2.ChartArea = "ChartArea1";
-            series2.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
-            series2.Legend = "Legend1";
-            series2.Name = "Temperature";
-            this.Chart.Series.Add(series1);
-            this.Chart.Series.Add(series2);
-            this.Chart.Size = new System.Drawing.Size(369, 330);
-            this.Chart.TabIndex = 1;
-            this.Chart.Text = "chart1";
-            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -325,10 +395,11 @@
             this.tabSettings.ResumeLayout(false);
             this.tabChart.ResumeLayout(false);
             this.tabChart.PerformLayout();
+            this.panel1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.Chart)).EndInit();
             this.statusStrip_.ResumeLayout(false);
             this.statusStrip_.PerformLayout();
             this.taskbarNotify_contextMenu.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.Chart)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -360,6 +431,12 @@
         private System.Windows.Forms.ToolStripMenuItem stopToolStripMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
         private System.Windows.Forms.DataVisualization.Charting.Chart Chart;
+        private System.Windows.Forms.CheckedListBox ChartCheckListBox;
+        private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.Button btnClearLog;
+        private System.Windows.Forms.Button btnClearChat;
+        private System.Windows.Forms.ToolStripStatusLabel toolStrip_StopWatch;
+        private System.Windows.Forms.Timer StopWatchTimer;
     }
 }
 
