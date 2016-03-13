@@ -1,17 +1,26 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
 	<Product 
-    Id="EFD34E97-291A-43FC-8232-AD0BBA786C42" 
+    Id="%T_MainWiXGUID_T%" 
     Name="iTKerry SensorTool" 
     Language="1033" 
-    Version="1.0.0.19" 
+    Version="%T_MainToolVersion_T%.%T_BuildNumber_T%" 
     Manufacturer="iTKerry" 
     UpgradeCode="a921f30d-2940-4627-9f14-6ba1b1948022">
 		
     <Package InstallerVersion="200" Compressed="yes" InstallScope="perMachine" />
 		
     <MajorUpgrade DowngradeErrorMessage="A newer version of [ProductName] is already installed." />
-		<Media Id="1" Cabinet="simple.cab" EmbedCab="yes" />    
+		<Media Id="1" Cabinet="simple.cab" EmbedCab="yes" />
+
+    <Icon Id="ARP_Icon" SourceFile="Binary\icon_sky.ico"/>
+    <Property Id="ARPPRODUCTICON" Value="ARP_Icon" />
+    <Property Id="ARPCOMMENTS" Value="(c) iTKerry" />
+    
+    <!--.NET condition-->
+    <Condition Message="You must install Microsoft .NET Framework 4.0 or higher.">
+      <![CDATA[Installed OR NETFRAMEWORK40FULL]]>
+    </Condition>
     
     <!--FEATURES-->
     <Feature Id="ProductFeature" Title="SensorTool" Level="1">
@@ -29,13 +38,13 @@
       <!--PROGRAMFILESFOLDER-->
 			<Directory Id="ProgramFilesFolder">
         <Directory Id="dir_iTKerry" Name="iTKerry">
-          <Directory Id="INSTALLFOLDER" Name="SensorTool" />
+          <Directory Id="INSTALLFOLDER" Name="SensorTool %T_MainToolVersion_T%" />
         </Directory>        
       </Directory>
       <!--PROGRAMMENUFOLDER-->
       <Directory Id="ProgramMenuFolder">
         <Directory Id="dir_Subfolder1" Name="iTKerry">
-            <Directory Id="dir_Subfolder2" Name="iTKerry SensorTool 1.0.0" />                        
+            <Directory Id="dir_Subfolder2" Name="iTKerry SensorTool %T_MainToolVersion_T%" />                        
          </Directory>
       </Directory>
 		</Directory>
@@ -53,7 +62,7 @@
              <RemoveFolder Id="dir_Subfolder1" Directory="dir_Subfolder1" On="uninstall"/>
              <RemoveFolder Id="dir_Subfolder2" Directory="dir_Subfolder2" On="uninstall"/>                            
 	           <!--Create Shortcuts-->
-             <Shortcut Id="MainExeStartMenuShortcut" Name="iTKerry SensorTool 1.0.0" Directory="dir_Subfolder2" Description="iTKerrys Toolset" Target="[INSTALLFOLDER]Diploma_TestApp.exe" />
+             <Shortcut Id="MainExeStartMenuShortcut" Name="iTKerry SensorTool %T_MainToolVersion_T%" Directory="dir_Subfolder2" Description="iTKerrys Toolset" Target="[INSTALLFOLDER]Diploma_TestApp.exe" />
              <RegistryValue Root="HKMU" Key="Software\[Manufacturer]\[ProductName]" Name="installed" Type="integer" Value="1" KeyPath="yes" />
        	  </Component>
        </DirectoryRef> 

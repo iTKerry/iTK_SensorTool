@@ -31,9 +31,9 @@ xcopy "%RepPath%\BuildScripts\WiX\*.wxs" "%InstallerTemp%\" /Q /Y
 REM <-- generate MSI -->
 "%WIX%\bin\heat" dir "%InstallerTemp%\Release" -dr INSTALLFOLDER -cg cmpG_SensorTool_Main -sreg -scom -gg -g1 -sf -srd -var "var.MyDir" -out "%InstallerTemp%\ConAppManifest.wxs"
 
-"%WIX%\bin\candle" -dMyDir=Release "%InstallerTemp%\*.wxs" -out "%InstallerTemp%\\" -ext "WixUIExtension.dll"
+"%WIX%\bin\candle" -dMyDir=Release "%InstallerTemp%\*.wxs" -out "%InstallerTemp%\\"  -ext "WixNetFxExtension.dll" -ext "WixUIExtension.dll"
 IF %ERRORLEVEL% NEQ 0 EXIT 1
-"%WIX%\bin\light" -out "iTK_SensorTool.%MainVersionNumber%.%BUILD_NUMBER%.msi" -ext "WixUIExtension.dll" -sice:ICE57 "%InstallerTemp%\*.wixobj"
+"%WIX%\bin\light" -out "iTK_SensorTool.%MainVersionNumber%.%BUILD_NUMBER%.msi" -ext "WixNetFxExtension.dll" -ext "WixUIExtension.dll" -sice:ICE57 "%InstallerTemp%\*.wixobj"
 IF %ERRORLEVEL% NEQ 0 EXIT 1
 
 REM <===========================================================================>

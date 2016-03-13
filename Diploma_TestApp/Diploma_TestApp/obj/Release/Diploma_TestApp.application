@@ -4,17 +4,17 @@
   <description asmv2:publisher="Diploma_TestApp" asmv2:product="Diploma_TestApp" xmlns="urn:schemas-microsoft-com:asm.v1" />
   <deployment install="true" mapFileExtensions="true" />
   <compatibleFrameworks xmlns="urn:schemas-microsoft-com:clickonce.v2">
-    <framework targetVersion="4.6.1" profile="Full" supportedRuntime="4.0.30319" />
+    <framework targetVersion="4.0" profile="Full" supportedRuntime="4.0.30319" />
   </compatibleFrameworks>
   <dependency>
-    <dependentAssembly dependencyType="install" codebase="Diploma_TestApp.exe.manifest" size="5634">
+    <dependentAssembly dependencyType="install" codebase="Diploma_TestApp.exe.manifest" size="5582">
       <assemblyIdentity name="Diploma_TestApp.exe" version="1.0.0.0" publicKeyToken="0000000000000000" language="neutral" processorArchitecture="msil" type="win32" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
-        <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>14r7XIcNuZriBK8GLcaXghN1DwOLEfKHbULnUSRzb/E=</dsig:DigestValue>
+        <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
+        <dsig:DigestValue>nGJO+xn1K7M0OzwKbU3WOG6J7Wo=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>

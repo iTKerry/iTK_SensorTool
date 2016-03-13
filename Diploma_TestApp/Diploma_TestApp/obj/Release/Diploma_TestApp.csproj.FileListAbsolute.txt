@@ -16,3 +16,9 @@ D:\iTKerry\PROJECTS\GIT\iTK_SensorTool\Diploma_TestApp\Diploma_TestApp\obj\Relea
 D:\iTKerry\PROJECTS\GIT\iTK_SensorTool\Diploma_TestApp\Diploma_TestApp\obj\Release\Diploma_TestApp.csproj.GenerateResource.Cache
 D:\iTKerry\PROJECTS\GIT\iTK_SensorTool\Diploma_TestApp\Diploma_TestApp\obj\Release\Diploma_TestApp.exe
 D:\iTKerry\PROJECTS\GIT\iTK_SensorTool\Diploma_TestApp\Diploma_TestApp\obj\Release\Diploma_TestApp.pdb
+D:\iTKerry\PROJECTS\GIT\iTK_SensorTool\Diploma_TestApp\Diploma_TestApp\bin\Release\Diploma_TestApp.exe.config
+D:\iTKerry\PROJECTS\GIT\iTK_SensorTool\Diploma_TestApp\Diploma_TestApp\bin\Release\Diploma_TestApp.exe.manifest
+D:\iTKerry\PROJECTS\GIT\iTK_SensorTool\Diploma_TestApp\Diploma_TestApp\bin\Release\Diploma_TestApp.application
+D:\iTKerry\PROJECTS\GIT\iTK_SensorTool\Diploma_TestApp\Diploma_TestApp\obj\Release\Diploma_TestApp.TrustInfo.xml
+D:\iTKerry\PROJECTS\GIT\iTK_SensorTool\Diploma_TestApp\Diploma_TestApp\obj\Release\Diploma_TestApp.exe.manifest
+D:\iTKerry\PROJECTS\GIT\iTK_SensorTool\Diploma_TestApp\Diploma_TestApp\obj\Release\Diploma_TestApp.application
