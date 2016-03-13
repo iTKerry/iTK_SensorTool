@@ -26,7 +26,7 @@ edit_file {
     s/%T_MainToolVersion_T%/$MainVersionNumber/xgi;
     s/%T_BuildNumber_T%/$Build_Number/xgi;
  
-} $Source_Path."/BuildScripts/WiX/ConAppProduct.wxs";
+} $Source_Path."/BuildScripts/WiX/SensorTool_Product.wxs";
 
 #======================================================================================
 # IV. Parse AssemblyInfo.cs Files
