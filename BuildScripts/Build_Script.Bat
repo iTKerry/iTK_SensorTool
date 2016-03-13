@@ -15,7 +15,7 @@ REM <===========================================================================
 
 REM <-- 1. Console Application -->
 
-REM <-- build ConApp -->
+REM <-- build SensorTool -->
 %MSBuild40% "%RepPath%\Diploma_TestApp\Diploma_TestApp.sln" /t:Clean;Rebuild /p:Configuration=Release /p:Platform="Any CPU"
 IF %ERRORLEVEL% NEQ 0 EXIT 1
 
@@ -29,7 +29,7 @@ xcopy "%RepPath%\Documentation\*.*" "%InstallerTemp%\Release\Documentation\" /Q 
 xcopy "%RepPath%\BuildScripts\WiX" "%InstallerTemp%\" /Q /Y /E
 
 REM <-- generate MSI -->
-"%WIX%\bin\heat" dir "%InstallerTemp%\Release" -dr INSTALLFOLDER -cg cmpG_SensorTool_Main -sreg -scom -gg -g1 -sf -srd -var "var.MyDir" -out "%InstallerTemp%\ConAppManifest.wxs"
+"%WIX%\bin\heat" dir "%InstallerTemp%\Release" -dr INSTALLFOLDER -cg cmpG_SensorTool_Main -sreg -scom -gg -g1 -sf -srd -var "var.MyDir" -out "%InstallerTemp%\SensorTool_Manifest.wxs"
 
 "%WIX%\bin\candle" -dMyDir=Release "%InstallerTemp%\*.wxs" -out "%InstallerTemp%\\"  -ext "WixNetFxExtension.dll" -ext "WixUIExtension.dll"
 IF %ERRORLEVEL% NEQ 0 EXIT 1
