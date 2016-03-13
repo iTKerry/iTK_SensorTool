@@ -24,9 +24,9 @@ REM <-- 1. Delete all trash files from Release folder -->
 del /Q /F "%RepPath%\Diploma_TestApp\Diploma_TestApp\bin\Release\*.pdb"
 
 REM <-- copy Database & WiX files -->
-xcopy "%RepPath%\Diploma_TestApp\Diploma_TestApp\bin\Release" "%InstallerTemp%\Release\" /Q /Y
-xcopy "%RepPath%\Documentation\*.*" "%InstallerTemp%\Release\Documentation\" /Q /Y
-xcopy "%RepPath%\BuildScripts\WiX" "%InstallerTemp%\" /Q /Y
+xcopy "%RepPath%\Diploma_TestApp\Diploma_TestApp\bin\Release" "%InstallerTemp%\Release\" /Q /Y /E
+xcopy "%RepPath%\Documentation\*.*" "%InstallerTemp%\Release\Documentation\" /Q /Y /E
+xcopy "%RepPath%\BuildScripts\WiX" "%InstallerTemp%\" /Q /Y /E
 
 REM <-- generate MSI -->
 "%WIX%\bin\heat" dir "%InstallerTemp%\Release" -dr INSTALLFOLDER -cg cmpG_SensorTool_Main -sreg -scom -gg -g1 -sf -srd -var "var.MyDir" -out "%InstallerTemp%\ConAppManifest.wxs"
