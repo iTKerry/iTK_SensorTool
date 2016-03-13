@@ -17,10 +17,11 @@
     <Property Id="ARPPRODUCTICON" Value="ARP_Icon" />
     <Property Id="ARPCOMMENTS" Value="(c) iTKerry" />
     
-    <!--.NET condition-->
+    <!--.NET condition DOES'T WORK
     <Condition Message="You must install Microsoft .NET Framework 4.0 or higher.">
       <![CDATA[Installed OR NETFRAMEWORK40FULL]]>
     </Condition>
+    -->
     
     <!--FEATURES-->
     <Feature Id="ProductFeature" Title="SensorTool" Level="1">
