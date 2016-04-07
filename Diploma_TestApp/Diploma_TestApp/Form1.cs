@@ -369,7 +369,6 @@ namespace Diploma_TestApp
             date = DateTime.Now;            
             StopWatchTimer.Interval = 10;
             StopWatchTimer.Tick += new EventHandler(tickStopWatchTimer);
-            StopWatchTimer.Start();
 
             ioThread = new Thread(RunIO_Process);
             ioThread.Start(data);
@@ -378,7 +377,6 @@ namespace Diploma_TestApp
 
         private void btnStop_Click(object sender, EventArgs e)
         {
-            StopWatchTimer.Dispose();
             StopIO_Process();
         }
 
@@ -415,7 +413,8 @@ namespace Diploma_TestApp
                 taskbarNotify.Text = DefaultText + "Running";
 
                 this.Text = DefaultText + "Running";
-                //Chart.ResetAutoValues();
+
+                StopWatchTimer.Start();
             }
             else
             {
@@ -427,7 +426,9 @@ namespace Diploma_TestApp
 
                 taskbarNotify.Text = DefaultText + "Stopped";
 
-                this.Text = DefaultText + "Stopped";                
+                this.Text = DefaultText + "Stopped";
+
+                StopWatchTimer.Dispose();
             }                                    
 
             //6. Remember current state
