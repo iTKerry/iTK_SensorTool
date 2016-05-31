@@ -43,14 +43,14 @@
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="Diploma_TestApp.exe" size="160256">
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="Diploma_TestApp.exe" size="200192">
       <assemblyIdentity name="Diploma_TestApp" version="1.0.37.30" language="neutral" processorArchitecture="msil" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
-        <dsig:DigestValue>IezGNuJKkKBzCf/mPZ+sJ++Xwnk=</dsig:DigestValue>
+        <dsig:DigestValue>w3npG5mSx78Hr+qjeIIoOIJ16Ys=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>

@@ -17,12 +17,6 @@
     <Property Id="ARPPRODUCTICON" Value="ARP_Icon" />
     <Property Id="ARPCOMMENTS" Value="(c) iTKerry" />
     
-    <!--.NET condition DOES'T WORK
-    <Condition Message="You must install Microsoft .NET Framework 4.0 or higher.">
-      <![CDATA[Installed OR NETFRAMEWORK40FULL]]>
-    </Condition>
-    -->
-    
     <!--FEATURES-->
     <Feature Id="ProductFeature" Title="SensorTool" Level="1">
 			<ComponentGroupRef Id="cmpG_SensorTool_Main" />
@@ -63,8 +57,17 @@
              <RemoveFolder Id="dir_Subfolder1" Directory="dir_Subfolder1" On="uninstall"/>
              <RemoveFolder Id="dir_Subfolder2" Directory="dir_Subfolder2" On="uninstall"/>                            
 	           <!--Create Shortcuts-->
-             <Shortcut Id="MainExeStartMenuShortcut" Name="iTKerry SensorTool %T_MainToolVersion_T%" Directory="dir_Subfolder2" Description="iTKerrys Toolset" Target="[INSTALLFOLDER]Diploma_TestApp.exe" />
-             <RegistryValue Root="HKMU" Key="Software\[Manufacturer]\[ProductName]" Name="installed" Type="integer" Value="1" KeyPath="yes" />
+             <Shortcut Id="MainExeStartMenuShortcut" 
+                       Name="iTKerry SensorTool %T_MainToolVersion_T%" 
+                       Directory="dir_Subfolder2" 
+                       Description="iTKerrys Toolset" 
+                       Target="[INSTALLFOLDER]Diploma_TestApp.exe" />
+             <RegistryValue Root="HKMU" 
+                            Key="Software\[Manufacturer]\[ProductName]" 
+                            Name="installed" 
+                            Type="integer" 
+                            Value="1" 
+                            KeyPath="yes" />
        	  </Component>
        </DirectoryRef> 
 	  </Fragment>

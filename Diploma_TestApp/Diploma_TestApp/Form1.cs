@@ -9,6 +9,7 @@ using PP_ComLib_Wrapper;
 using System.Diagnostics;
 using System.Threading;
 using System.Windows.Forms.DataVisualization.Charting;
+using System.Runtime.InteropServices;
 
 namespace Diploma_TestApp
 {
@@ -17,11 +18,12 @@ namespace Diploma_TestApp
         PP_ComLib_WrapperClass ppSensor, ppActuator;        
 
         int I2C_ADDR = 0x00;
+        bool WindowMaximizeState = false;
 
         string lastActiveSensorPort;
         string lastActiveActuatorPort;
 
-        DateTime date;
+        DateTime date;        
 
         bool guiRunState = false;
         Thread ioThread = null;
@@ -276,9 +278,9 @@ namespace Diploma_TestApp
 
                 if (InvokeRequired)
                     this.Invoke(new MethodInvoker(() =>
-                    {
-                        toolStrip_IlluminationStatus.Text = "Illumination: " + DECdata.DECillumination.ToString();
-                        toolStrip_TemperatureStatus.Text = "Temperature: " + DECdata.DECtemperature.ToString();
+                    {                        
+                        IlluminationLabel.Text = "Illumination: " + DECdata.DECillumination.ToString();
+                        TemperatureLable.Text = "Temperature: " + DECdata.DECtemperature.ToString();
                     } ));
 
                 if (InvokeRequired)
@@ -396,8 +398,12 @@ namespace Diploma_TestApp
             btnRun.Enabled = (guiStateNow.actuatorPort != String.Empty) &&
                              (guiStateNow.sensorPort != String.Empty) &&
                              (guiStateNow.threadRunning == false);
+            runToolStripMenuItem.Enabled = (guiStateNow.actuatorPort != String.Empty) &&
+                                           (guiStateNow.sensorPort != String.Empty) &&
+                                           (guiStateNow.threadRunning == false);
 
-            btnStop.Enabled = guiStateNow.threadRunning == true;
+            btnStop.Enabled = guiStateNow.threadRunning;
+            stopToolStripMenuItem.Enabled = guiStateNow.threadRunning;
 
             cmbActuators.Enabled = !guiStateNow.threadRunning;
             cmbSensors.Enabled = !guiStateNow.threadRunning;
@@ -407,25 +413,18 @@ namespace Diploma_TestApp
             //4. Set status labels            
             if (guiStateNow.threadRunning == true)
             {
-                toolStrip_RunningStatus.Text = "Running . . .";
-                toolStrip_RunningStatus.BackColor = Color.Green;                                
-
+                RunningStatusLabel.Text = "Running . . .";
                 taskbarNotify.Text = DefaultText + "Running";
-
                 this.Text = DefaultText + "Running";
 
                 StopWatchTimer.Start();
             }
             else
             {
-                toolStrip_RunningStatus.Text = "Stopped . . .";
-                toolStrip_RunningStatus.BackColor = Color.Orange;
-
-                toolStrip_IlluminationStatus.Text = "Illumination: -";
-                toolStrip_TemperatureStatus.Text = "Temperature: -";                
-
+                RunningStatusLabel.Text = "Stopped . . .";
+                IlluminationLabel.Text = "Illumination: -";
+                TemperatureLable.Text = "Temperature: -";
                 taskbarNotify.Text = DefaultText + "Stopped";
-
                 this.Text = DefaultText + "Stopped";
 
                 StopWatchTimer.Dispose();
@@ -443,7 +442,7 @@ namespace Diploma_TestApp
             DateTime stopWatch = new DateTime();
 
             stopWatch = stopWatch.AddTicks(tick);
-            toolStrip_StopWatch.Text = String.Format("Time: " + "{0:HH:mm:ss:ff}", stopWatch);
+            StopwatchLable.Text = String.Format("Time: " + "{0:HH:mm:ss:ff}", stopWatch);
         }
 
         private void cmbSensors_SelectedIndexChanged(object sender, EventArgs e)
@@ -516,5 +515,77 @@ namespace Diploma_TestApp
 
         #endregion
 
+        public const int WM_NCLBUTTONDOWN = 0xA1;
+        public const int HT_CAPTION = 0x2;
+
+        [DllImportAttribute("user32.dll")]
+        public static extern int SendMessage(IntPtr hWnd, int Msg, int wParam, int lParam);
+        [DllImportAttribute("user32.dll")]
+        public static extern bool ReleaseCapture();        
+
+        private void SettingsButton_Click(object sender, EventArgs e)
+        {
+            MainLable.Text = "Settings";
+            SettingsPanel.Visible = true;
+            AboutPanel.Visible = false;
+            ChartPanel.Visible = false;
+        }
+
+        private void ChartButton_Click(object sender, EventArgs e)
+        {
+            MainLable.Text = "Chart";
+            SettingsPanel.Visible = false;
+            AboutPanel.Visible = false;
+            ChartPanel.Visible = true;
+        }
+
+        private void AboutButton_Click(object sender, EventArgs e)
+        {
+            MainLable.Text = "About";
+            SettingsPanel.Visible = false;
+            AboutPanel.Visible = true;
+            ChartPanel.Visible = false;
+        }
+
+        private void ApplicationExitBtn_Click(object sender, EventArgs e)
+        {
+            Application.Exit();
+        }
+
+        private void ApplicationMinimizeBtn_Click(object sender, EventArgs e)
+        {
+            this.WindowState = FormWindowState.Minimized;
+        }
+
+        private void ApplicationMaximizeBtn_Click(object sender, EventArgs e)
+        {
+            if (!WindowMaximizeState)
+            {
+                this.WindowState = FormWindowState.Maximized;
+                WindowMaximizeState = true;
+                return;
+            }
+            this.WindowState = FormWindowState.Normal;
+            WindowMaximizeState = false;
+        }
+
+        private void linkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            System.Diagnostics.Process.Start("https://github.com/iTKerry");
+        }
+
+        private void linkLabel2_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            System.Diagnostics.Process.Start("https://vk.com/itkerry");
+        }
+
+        private void Header_MouseDown_1(object sender, System.Windows.Forms.MouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Left)
+            {
+                ReleaseCapture();
+                SendMessage(Handle, WM_NCLBUTTONDOWN, HT_CAPTION, 0);
+            }
+        }
     }
 }

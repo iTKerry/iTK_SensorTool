@@ -13,7 +13,7 @@ REM <===========================================================================
 REM <=== II. Generate BINARIES
 REM <===========================================================================>
 
-REM <-- 1. Console Application -->
+REM <-- 1. SensorTool -->
 
 REM <-- build SensorTool -->
 %MSBuild40% "%RepPath%\Diploma_TestApp\Diploma_TestApp.sln" /t:Clean;Rebuild /p:Configuration=Release /p:Platform="Any CPU"
