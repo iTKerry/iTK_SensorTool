@@ -279,15 +279,15 @@ namespace Diploma_TestApp
                 if (InvokeRequired)
                     this.Invoke(new MethodInvoker(() =>
                     {                        
-                        IlluminationLabel.Text = "Illumination: " + DECdata.DECillumination.ToString();
-                        TemperatureLable.Text = "Temperature: " + DECdata.DECtemperature.ToString();
+                        IlluminationLabel.Text = "Освітл.: " + DECdata.DECillumination.ToString();
+                        TemperatureLable.Text = "Темп.: " + DECdata.DECtemperature.ToString();
                     } ));
 
                 if (InvokeRequired)
                     this.Invoke(new MethodInvoker(() => 
                     {
                         if (textBox_ConsoleOutput.Enabled == true)                       
-                            textBox_ConsoleOutput.AppendText("\r\n>>> Illum: " + DECdata.DECillumination.ToString() + "   Temp: " + DECdata.DECtemperature.ToString());
+                            textBox_ConsoleOutput.AppendText("\r\n>>> Осв.: " + DECdata.DECillumination.ToString() + "   Тем.: " + DECdata.DECtemperature.ToString());
                     } ));
 
                 int ChartXPointer_illumination = 0;
@@ -296,12 +296,12 @@ namespace Diploma_TestApp
                 if (InvokeRequired)
                     this.Invoke(new MethodInvoker(() =>
                     {                        
-                        if (Chart.Series["Illumination"].Points.Count > 150)
-                            Chart.Series["Illumination"].Points.RemoveAt(0);
-                        this.Chart.Series["Illumination"].Points.AddXY(ChartXPointer_illumination++, DECdata.DECillumination);
-                        if (Chart.Series["Temperature"].Points.Count > 150)
-                            Chart.Series["Temperature"].Points.RemoveAt(0);
-                        this.Chart.Series["Temperature"].Points.AddXY(ChartXPointer_temperature++, DECdata.DECtemperature);
+                        if (Chart.Series["Освітлення"].Points.Count > 150)
+                            Chart.Series["Освітлення"].Points.RemoveAt(0);
+                        this.Chart.Series["Освітлення"].Points.AddXY(ChartXPointer_illumination++, DECdata.DECillumination);
+                        if (Chart.Series["Температура"].Points.Count > 150)
+                            Chart.Series["Температура"].Points.RemoveAt(0);
+                        this.Chart.Series["Температура"].Points.AddXY(ChartXPointer_temperature++, DECdata.DECtemperature);
                         Chart.ResetAutoValues();
                     }));
 
@@ -413,19 +413,19 @@ namespace Diploma_TestApp
             //4. Set status labels            
             if (guiStateNow.threadRunning == true)
             {
-                RunningStatusLabel.Text = "Running . . .";
-                taskbarNotify.Text = DefaultText + "Running";
-                this.Text = DefaultText + "Running";
+                RunningStatusLabel.Text = "Запущено...";
+                taskbarNotify.Text = DefaultText + "Запущено";
+                this.Text = DefaultText + "Запущено";
 
                 StopWatchTimer.Start();
             }
             else
             {
-                RunningStatusLabel.Text = "Stopped . . .";
-                IlluminationLabel.Text = "Illumination: -";
-                TemperatureLable.Text = "Temperature: -";
-                taskbarNotify.Text = DefaultText + "Stopped";
-                this.Text = DefaultText + "Stopped";
+                RunningStatusLabel.Text = "Зупинено...";
+                IlluminationLabel.Text = "Освітл.: -";
+                TemperatureLable.Text = "Темп.: -";
+                taskbarNotify.Text = DefaultText + "Зупинено";
+                this.Text = DefaultText + "Зупинено";
 
                 StopWatchTimer.Dispose();
             }                                    
@@ -442,7 +442,7 @@ namespace Diploma_TestApp
             DateTime stopWatch = new DateTime();
 
             stopWatch = stopWatch.AddTicks(tick);
-            StopwatchLable.Text = String.Format("Time: " + "{0:HH:mm:ss:ff}", stopWatch);
+            StopwatchLable.Text = String.Format("Час: " + "{0:HH:mm:ss:ff}", stopWatch);
         }
 
         private void cmbSensors_SelectedIndexChanged(object sender, EventArgs e)
@@ -525,7 +525,7 @@ namespace Diploma_TestApp
 
         private void SettingsButton_Click(object sender, EventArgs e)
         {
-            MainLable.Text = "Settings";
+            MainLable.Text = "Налаштування";
             SettingsPanel.Visible = true;
             AboutPanel.Visible = false;
             ChartPanel.Visible = false;
@@ -533,7 +533,7 @@ namespace Diploma_TestApp
 
         private void ChartButton_Click(object sender, EventArgs e)
         {
-            MainLable.Text = "Chart";
+            MainLable.Text = "Графік";
             SettingsPanel.Visible = false;
             AboutPanel.Visible = false;
             ChartPanel.Visible = true;
@@ -541,7 +541,7 @@ namespace Diploma_TestApp
 
         private void AboutButton_Click(object sender, EventArgs e)
         {
-            MainLable.Text = "About";
+            MainLable.Text = "Про програму";
             SettingsPanel.Visible = false;
             AboutPanel.Visible = true;
             ChartPanel.Visible = false;

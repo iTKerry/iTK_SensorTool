@@ -33,7 +33,7 @@ REM <-- generate MSI -->
 
 "%WIX%\bin\candle" -dMyDir=Release "%InstallerTemp%\*.wxs" -out "%InstallerTemp%\\"  -ext "WixNetFxExtension.dll" -ext "WixUIExtension.dll"
 IF %ERRORLEVEL% NEQ 0 EXIT 1
-"%WIX%\bin\light" -out "iTK_SensorTool.%MainVersionNumber%.%BUILD_NUMBER%.msi" -ext "WixNetFxExtension.dll" -ext "WixUIExtension.dll" -sice:ICE57 "%InstallerTemp%\*.wixobj"
+"%WIX%\bin\light" -out "iTK_SensorTool.%MainVersionNumber%.%BUILD_NUMBER%.msi" -ext "WixNetFxExtension.dll" -ext "WixUIExtension.dll" -culture:uk-UA -sice:ICE57 "%InstallerTemp%\*.wixobj"
 IF %ERRORLEVEL% NEQ 0 EXIT 1
 
 REM <===========================================================================>
